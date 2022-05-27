@@ -27,6 +27,7 @@ void printReverse();
 void insertAtBeginning(int key);
 void insertAtTheEndUsingHead(int key);
 void insertAtTheEndUsingTail(int key);
+void insertAtSpecificPosition(int key, int pos);
 // Temp function
 void printNode(Node * node);
 
@@ -35,13 +36,14 @@ int main(void){
     
     bool running = true;
     int option;
-    int key;
+    int key, pos;
     while (running){
         system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
         cout << "2) Insert at the end using head. " << endl;
         cout << "3) Insert at the end using tail. " << endl;
+        cout << "4) Insert at specific position." << endl;
         cout << "0) Exit." << endl;
         cout << " >> "; cin >> option;
         switch (option)
@@ -61,6 +63,10 @@ int main(void){
             cout << "Insert key number:"; cin >> key;
             insertAtTheEndUsingTail(key);
             break;
+        case 4:
+            cout << "Insert key number: "; cin >> key;
+            cout << "Insert position to at number: "; cin >> pos;
+            insertAtSpecificPosition(key, pos);
         default:
             break;
         }
@@ -86,11 +92,11 @@ void printForward(){
     else{
         ptr = head;
         cout << "----------------------------------------" << endl;
-        cout << setw(8) << "Previus " << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
+        cout << setw(8) << "Previus " << setw(24) << "<--   Node  [data] [pos] -->" << setw(8) << " Next" << endl;
         do { 
             cout << setw(8) << ptr->previus << " <-- ";
             cout << ptr << "[" << setw(4) << ptr->data << "]";
-            cout << " --> " << ptr->next << endl;
+            cout << " -->   " << ptr->next << endl;
             ptr = ptr->next;
         } while (ptr != NULL);
         cout << endl << "HEAD: " << head <<"\t\tTAIL: " << tail << endl;
@@ -144,7 +150,6 @@ void insertAtTheEndUsingHead(int key){
         while (ptrpass->next != NULL){
             ptrpass = ptrpass->next;
         } 
-        cout << "PTRPASS : " <<ptrpass->data << endl;
         ptr->next = NULL;
         ptr->data = key;
         ptr->previus = ptrpass; 
@@ -172,6 +177,24 @@ void insertAtTheEndUsingTail(int key){
     }
 }
 
+
+void insertAtSpecificPosition(int key, int pos){
+    Node *ptrpass = new Node();
+    ptrpass = head;
+    int t;
+    for (int i = 1; i < pos - 1; i++){
+        ptrpass = ptrpass->next;
+    }
+
+    Node * ptr = new Node();
+    ptr->previus = ptrpass;
+    ptr->data = key;
+    ptr->next = ptrpass->next;
+
+    ptr->next->previus = ptr;
+    ptrpass->next = ptr;
+    
+}
 
 void printNode(Node *node){
     if (node == NULL) cout << "Node NULL" << endl;
