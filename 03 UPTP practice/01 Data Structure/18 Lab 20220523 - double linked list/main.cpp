@@ -28,6 +28,7 @@ void insertAtBeginning(int key);
 void insertAtTheEndUsingHead(int key);
 void insertAtTheEndUsingTail(int key);
 void insertAtSpecificPosition(int key, int pos);
+void deletionAtBeginning();
 // Temp function
 void printNode(Node * node);
 
@@ -44,6 +45,7 @@ int main(void){
         cout << "2) Insert at the end using head. " << endl;
         cout << "3) Insert at the end using tail. " << endl;
         cout << "4) Insert at specific position." << endl;
+        cout << "5) Deletion at the beginning. " << endl;
         cout << "0) Exit." << endl;
         cout << " >> "; cin >> option;
         switch (option)
@@ -67,6 +69,9 @@ int main(void){
             cout << "Insert key number: "; cin >> key;
             cout << "Insert position to at number: "; cin >> pos;
             insertAtSpecificPosition(key, pos);
+        case 5:
+            deletionAtBeginning();
+            break;
         default:
             break;
         }
@@ -194,6 +199,19 @@ void insertAtSpecificPosition(int key, int pos){
     ptr->next->previus = ptr;
     ptrpass->next = ptr;
     
+}
+
+// Deletion at the beginnin
+void deletionAtBeginning(){
+    if (head == NULL) cout << "You can't delete a void linked list." << endl;
+    else {
+        Node *ptrToDelete = new Node();
+        Node *ptrpass = new Node();
+        ptrToDelete = head;
+        ptrpass = head->next;
+        head = ptrpass;
+        delete(ptrToDelete); 
+    }
 }
 
 void printNode(Node *node){
