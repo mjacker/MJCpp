@@ -69,9 +69,10 @@ void printDlist(){
     else{
         ptr = head;
         cout << "--------------------------------------" << endl;
+        cout << setw(8) << "Previus " << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
         do { 
             cout << setw(8) << ptr->previus << " <-- ";
-            cout << ptr << "[" << ptr->data << "]";
+            cout << ptr << "[" << setw(4) << ptr->data << "]";
             cout << " --> " << ptr->next << endl;
             ptr = ptr->next;
         } while (ptr != NULL);
@@ -90,6 +91,8 @@ void insertAtBeginning(int key){
         ptr->next = head->next;
         head->next = ptr;    
         
+        // find the last node to save in tail
+
     }
 }
 
