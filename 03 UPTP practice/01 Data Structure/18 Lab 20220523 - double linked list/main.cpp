@@ -28,7 +28,8 @@ Node *tail;
 
 // Functions predefinitions
 void createDlist(int key);
-void printDlist();
+void printForward();
+void printReverse();
 void insertAtBeginning(int key);
 
 // Temp function
@@ -39,13 +40,17 @@ int main(void){
     
     // Creating double linked list
     createDlist(10);
-    printDlist();
+    printForward();
 
     // Inserting at the beginning
     cout << endl << "Insert at the beginning: " << endl;
     insertAtBeginning(20);
     insertAtBeginning(30);
-    printDlist();
+    printForward();
+    
+    // Printing reverse.
+    cout << "Printing reverse: " << endl;
+    printReverse();
 
 
     return 0;
@@ -63,12 +68,12 @@ void createDlist(int key){
 }
 
 // Print Double linkded list
-void printDlist(){
+void printForward(){
     Node *ptr = new Node;
     if (head == NULL) cout << "Empty double linked list" << endl;
     else{
         ptr = head;
-        cout << "--------------------------------------" << endl;
+        cout << "----------------------------------------" << endl;
         cout << setw(8) << "Previus " << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
         do { 
             cout << setw(8) << ptr->previus << " <-- ";
@@ -77,22 +82,49 @@ void printDlist(){
             ptr = ptr->next;
         } while (ptr != NULL);
         cout << endl << "HEAD: " << head <<"\t\tTAIL: " << tail << endl;
-        cout << "--------------------------------------" << endl;
+        cout << "----------------------------------------" << endl;
     }
 }
 
+void printReverse(){
+    Node *ptr = new Node;
+    if (tail == NULL) cout << "Empty double linked list" << endl;
+    else{
+        ptr = tail;
+        cout << "----------------------------------------" << endl;
+        cout << setw(8) << "Previus " << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
+        do { 
+            cout << setw(8) << ptr->previus << " <-- ";
+            cout << ptr << "[" << setw(4) << ptr->data << "]";
+            cout << " --> " << ptr->next << endl;
+            ptr = ptr->previus;
+        } while (ptr != NULL);
+        cout << endl << "HEAD: " << head <<"\t\tTAIL: " << tail << endl;
+        cout << "----------------------------------------" << endl;
+    }
+}
+
+
 void insertAtBeginning(int key){
-    Node *ptr;
-    ptr = new Node;
+    Node *ptr = new Node;
     if (head == NULL) cout << "Empty double linked list." << endl;
     else  {
         ptr->previus = head;
         ptr->data = key;
         ptr->next = head->next;
         head->next = ptr;    
+
+        // if there head.next is null or it has another node.
+        if (ptr->next != NULL) 
+            ptr->next->previus = ptr;
         
         // find the last node to save in tail
-
+        ptr = head;
+        while ( ptr->next != NULL){
+            ptr = ptr->next;
+        }
+        //cout << "Last node pointer: " << ptr->data << endl;
+        tail = ptr;
     }
 }
 
