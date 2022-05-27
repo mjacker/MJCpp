@@ -25,7 +25,7 @@ void createDlist(int key);
 void printForward();
 void printReverse();
 void insertAtBeginning(int key);
-
+void insertAtTheEnd(int key);
 // Temp function
 void printNode(Node * node);
 
@@ -34,16 +34,22 @@ int main(void){
     
     // Creating double linked list
     createDlist(10);
-    printForward();
+    //printForward();
 
     // Inserting at the beginning
     cout << endl << "Insert at the beginning: " << endl;
     insertAtBeginning(20);
     insertAtBeginning(30);
+    insertAtBeginning(40);
+    //printForward();
+    cout << endl << "Insert at the end (Before tail):" << endl;
+    insertAtTheEnd(50);
+    insertAtTheEnd(60);
+    insertAtTheEnd(70);
     printForward();
     
     // Printing reverse.
-    cout << "Printing reverse: " << endl;
+    //cout << "Printing reverse: " << endl;
     printReverse();
 
 
@@ -103,24 +109,34 @@ void insertAtBeginning(int key){
     Node *ptr = new Node;
     if (head == NULL) cout << "Empty double linked list." << endl;
     else  {
-        ptr->previus = head;
+        ptr->previus = NULL;
         ptr->data = key;
-        ptr->next = head->next;
-        head->next = ptr;    
-
-        // if there head.next is null or it has another node.
-        if (ptr->next != NULL) 
-            ptr->next->previus = ptr;
+        ptr->next = head;
         
-        // find the last node to save in tail
-        ptr = head;
-        while ( ptr->next != NULL){
-            ptr = ptr->next;
-        }
-        //cout << "Last node pointer: " << ptr->data << endl;
-        tail = ptr;
+        // the first node is connecting to the new node.
+        head->previus = ptr;   
+
+        // the node created is now the new head.
+        head = ptr; 
     }
 }
+
+void insertAtTheEnd(int key){
+    Node *ptr = new Node;
+    if (tail == NULL) cout << "Empty double linked list." << endl;
+    else  {
+        ptr->previus = tail;
+        ptr->data = key;
+        ptr->next = NULL;
+        
+        // the first node is connecting to the new node.
+        tail->next = ptr;
+
+        // the node created is now the new head.
+        tail = ptr;    
+    }
+}
+
 
 void printNode(Node *node){
     if (node == NULL) cout << "Node NULL" << endl;
