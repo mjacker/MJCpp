@@ -32,8 +32,34 @@ void printNode(Node * node);
 int main(void){
     system("cls"); // clear screen 
     
+    bool running = true;
+    int option;
+    int key;
+    while (running){
+        system("cls");
+        printForward();
+        cout << "1) Insert at beginning." << endl;
+        cout << "2) Insert at the end. " << endl;
+        cout << "0) Exit." << endl;
+        cout << " >> "; cin >> option;
+        switch (option)
+        {
+        case 0:
+            running = false;
+            break;
+        case 1:
+            cout << "Insert key number: "; cin >> key;
+            insertAtBeginning(key);
+            break;
+        case 2:
+            cout << "Insert key number: "; cin >> key;
+            insertAtTheEnd(key);
+        default:
+            break;
+        }
+    }
     // Creating double linked list
-    createDlist(10);
+    //createDlist(10);
     //printForward();
 
     // Inserting at the beginning
@@ -107,7 +133,7 @@ void printReverse(){
 
 void insertAtBeginning(int key){
     Node *ptr = new Node;
-    if (head == NULL) cout << "Empty double linked list." << endl;
+    if (head == NULL) createDlist(key);
     else  {
         ptr->previus = NULL;
         ptr->data = key;
@@ -123,7 +149,7 @@ void insertAtBeginning(int key){
 
 void insertAtTheEnd(int key){
     Node *ptr = new Node;
-    if (tail == NULL) cout << "Empty double linked list." << endl;
+    if (tail == NULL) createDlist(key);
     else  {
         ptr->previus = tail;
         ptr->data = key;
