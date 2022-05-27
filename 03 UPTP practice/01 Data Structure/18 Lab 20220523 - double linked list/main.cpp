@@ -25,7 +25,8 @@ void createDlist(int key);
 void printForward();
 void printReverse();
 void insertAtBeginning(int key);
-void insertAtTheEnd(int key);
+void insertAtTheEndUsingHead(int key);
+void insertAtTheEndUsingTail(int key);
 // Temp function
 void printNode(Node * node);
 
@@ -39,7 +40,8 @@ int main(void){
         system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
-        cout << "2) Insert at the end. " << endl;
+        cout << "2) Insert at the end using head. " << endl;
+        cout << "3) Insert at the end using tail. " << endl;
         cout << "0) Exit." << endl;
         cout << " >> "; cin >> option;
         switch (option)
@@ -53,32 +55,16 @@ int main(void){
             break;
         case 2:
             cout << "Insert key number: "; cin >> key;
-            insertAtTheEnd(key);
+            insertAtTheEndUsingHead(key);
+            break;
+        case 3:
+            cout << "Insert key number:"; cin >> key;
+            insertAtTheEndUsingTail(key);
+            break;
         default:
             break;
         }
     }
-    // Creating double linked list
-    //createDlist(10);
-    //printForward();
-
-    // Inserting at the beginning
-    cout << endl << "Insert at the beginning: " << endl;
-    insertAtBeginning(20);
-    insertAtBeginning(30);
-    insertAtBeginning(40);
-    //printForward();
-    cout << endl << "Insert at the end (Before tail):" << endl;
-    insertAtTheEnd(50);
-    insertAtTheEnd(60);
-    insertAtTheEnd(70);
-    printForward();
-    
-    // Printing reverse.
-    //cout << "Printing reverse: " << endl;
-    printReverse();
-
-
     return 0;
 }
 
@@ -147,7 +133,30 @@ void insertAtBeginning(int key){
     }
 }
 
-void insertAtTheEnd(int key){
+// using Tail
+void insertAtTheEndUsingHead(int key){
+    Node *ptr = new Node(); // create a new node with data.
+    Node *ptrpass = new Node(); // just a pointer iterator.
+    if (head == NULL) createDlist(key);
+    else  {
+        ptrpass = head;
+        // Find the last node
+        while (ptrpass->next != NULL){
+            ptrpass = ptrpass->next;
+        } 
+        cout << "PTRPASS : " <<ptrpass->data << endl;
+        ptr->next = NULL;
+        ptr->data = key;
+        ptr->previus = ptrpass; 
+        ptrpass->next = ptr;
+
+        // new tail
+        tail = ptr;
+    }
+}
+
+// using Tail
+void insertAtTheEndUsingTail(int key){
     Node *ptr = new Node;
     if (tail == NULL) createDlist(key);
     else  {
