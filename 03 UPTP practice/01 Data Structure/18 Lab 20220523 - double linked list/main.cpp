@@ -41,7 +41,7 @@ int main(void){
     int option;
     int key, pos;
     while (running){
-        system("cls");
+        //system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
         cout << "2) Insert at the end using head. " << endl;
@@ -191,26 +191,49 @@ void insertAtTheEndUsingTail(int key){
     }
 }
 
-
+// if pos is greater than the length of linked list, the new node will add at the end.
 void insertAtSpecificPosition(int key, int pos){
-    Node *ptrpass = new Node();
-    ptrpass = head;
-    int t;
-    for (int i = 1; i < pos - 1; i++){
-        ptrpass = ptrpass->next;
+    if (head == NULL && tail == NULL) {
+        cout <<"TOTALMENTE VACIO" << endl;
+       createDlist(key);
     }
+    else if (head->next == NULL && pos == 1){
+        cout<< "SOLO UN NODO"<< endl;
+        head->previus = new Node();
+        head->previus->previus = NULL;
+        head->previus->data = key;
+        head->previus->next = head;
+        head = head->previus;
+        tail = head->next;   
+    }
+    else if (head->next != NULL && pos == 1){
+        cout << "DOS NODOS" << endl;
+        Node *ptr = new Node();
+        ptr->previus = NULL;
+        ptr->data = key;
+        ptr->next = head;
+        head->previus = ptr;
+        head = ptr;
+    }
+    else {
+        cout<<"MAS DE UN NODO"<< endl;
+        Node *ptrpass = new Node();
+        ptrpass = head;
+        for (int i = 1; i < pos - 1; i++){
+            ptrpass = ptrpass->next;
+        }
 
-    Node * ptr = new Node();
-    ptr->previus = ptrpass;
-    ptr->data = key;
-    ptr->next = ptrpass->next;
+        Node * ptr = new Node();
+        ptr->previus = ptrpass;
+        ptr->data = key;
+        ptr->next = ptrpass->next;
 
-    ptr->next->previus = ptr;
-    ptrpass->next = ptr;
-    
+        ptr->next->previus = ptr;
+        ptrpass->next = ptr;
+    }
 }
 
-// Deletion at the beginnin
+// Deletion at the beginning
 void deletionAtBeginning(){
     if (head == NULL && tail == NULL) cout << "You can't delete a void linked list." << endl;
     else if (head->next == NULL){
