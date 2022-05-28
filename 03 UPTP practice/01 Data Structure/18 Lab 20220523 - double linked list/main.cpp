@@ -41,7 +41,7 @@ int main(void){
     int option;
     int key, pos;
     while (running){
-        //system("cls");
+        system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
         cout << "2) Insert at the end using head. " << endl;
@@ -100,19 +100,21 @@ void createDlist(int key){
 // Print Double linkded list
 void printForward(){
     Node *ptr = new Node;
+    int p = 1;
     if (head == NULL && tail == NULL) cout << "Empty double linked list" << endl;
     else{
         ptr = head;
-        cout << "----------------------------------------" << endl;
-        cout << setw(8) << "Previus " << setw(24) << "<--   Node  [data] [pos] -->" << setw(8) << " Next" << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << setw(8) << "Previous " << setw(26) << "<--  Node   [pos] [data] -->" << setw(8) << " Next" << endl;
         do { 
             cout << setw(8) << ptr->previus << " <-- ";
-            cout << ptr << "[" << setw(4) << ptr->data << "]";
+            cout << ptr << "[" << setw(3) << p << "] [" << setw (4) << ptr->data << "]";
             cout << " -->   " << ptr->next << endl;
             ptr = ptr->next;
+            p++;
         } while (ptr != NULL);
         cout << endl << "HEAD: " << head <<"\t\tTAIL: " << tail << endl;
-        cout << "----------------------------------------" << endl;
+        cout << "------------------------------------------------" << endl;
     }
 }
 
@@ -122,7 +124,7 @@ void printReverse(){
     else{
         ptr = tail;
         cout << "----------------------------------------" << endl;
-        cout << setw(8) << "Previus " << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
+        cout << setw(8) << "Previus" << setw(23) << "<--   Node  [data] -->" << setw(8) << " Next" << endl;
         do { 
             cout << setw(8) << ptr->previus << " <-- ";
             cout << ptr << "[" << setw(4) << ptr->data << "]";
