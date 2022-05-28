@@ -42,7 +42,7 @@ int main(void){
     int option;
     int key, pos;
     while (running){
-        //system("cls");
+        system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
         cout << "2) Insert at the end using head. " << endl;
