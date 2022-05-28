@@ -41,7 +41,7 @@ int main(void){
     int option;
     int key, pos;
     while (running){
-        system("cls");
+        //system("cls");
         printForward();
         cout << "1) Insert at beginning." << endl;
         cout << "2) Insert at the end using head. " << endl;
@@ -100,7 +100,7 @@ void createDlist(int key){
 // Print Double linkded list
 void printForward(){
     Node *ptr = new Node;
-    if (head == NULL) cout << "Empty double linked list" << endl;
+    if (head == NULL && tail == NULL) cout << "Empty double linked list" << endl;
     else{
         ptr = head;
         cout << "----------------------------------------" << endl;
@@ -210,7 +210,13 @@ void insertAtSpecificPosition(int key, int pos){
 
 // Deletion at the beginnin
 void deletionAtBeginning(){
-    if (head == NULL) cout << "You can't delete a void linked list." << endl;
+    if (head == NULL && tail == NULL) cout << "You can't delete a void linked list." << endl;
+    else if (head->next == NULL){
+        // the last node
+        delete(head);
+        head = NULL;
+        tail = NULL;
+    }
     else {
         Node *ptrToDelete = new Node();
         Node *ptrpass = new Node();
@@ -224,7 +230,13 @@ void deletionAtBeginning(){
 
 // Deletion at the end
 void deletionAtTheEnd(){
-    if (tail == NULL) cout << "You can't delete a void linked list." << endl;
+    if (tail == NULL && head == NULL) cout << "You can't delete a void linked list." << endl;
+    else if (tail->previus == NULL){
+        // the last node
+        delete(tail);
+        head = NULL;
+        tail = NULL;
+    }
     else {
         Node *ptrToDelete = new Node();
         Node *ptrpass = new Node();
