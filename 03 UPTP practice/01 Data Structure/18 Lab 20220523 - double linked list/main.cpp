@@ -30,6 +30,7 @@ void insertAtTheEndUsingTail(int key);
 void insertAtSpecificPosition(int key, int pos);
 void deletionAtBeginning();
 void deletionAtTheEnd();
+void deletionByGivenvalue(int key);
 
 // Temp function
 void printNode(Node * node);
@@ -49,6 +50,7 @@ int main(void){
         cout << "4) Insert at specific position." << endl;
         cout << "5) Deletion at the beginning. " << endl;
         cout << "6) Deletion at the end." << endl;
+        cout << "7) Deletion by given value." << endl;
         cout << "0) Exit." << endl;
         cout << " >> "; cin >> option;
         switch (option)
@@ -78,6 +80,10 @@ int main(void){
             break;
         case 6:
             deletionAtTheEnd();
+            break;
+        case 7:
+            cout << "What value do you want to delete? "; cin >> key;
+            deletionByGivenvalue(key);
             break;
         default:
             break;
@@ -191,7 +197,7 @@ void insertAtTheEndUsingTail(int key){
     }
 }
 
-// if pos is greater than the length of linked list, the new node will add at the end.
+// if pos is greater than the length of linked list, the new node will add at the end - not implemented
 void insertAtSpecificPosition(int key, int pos){
     if (head == NULL && tail == NULL) {
         cout <<"TOTALMENTE VACIO" << endl;
@@ -271,6 +277,67 @@ void deletionAtTheEnd(){
         tail = ptrpass;
         tail->next = NULL;
         delete(ptrToDelete);
+    }
+}
+
+void deletionByGivenvalue(int key){
+    Node *toDelete = new Node();
+    if (head == NULL && tail == NULL) cout << "You can't delete a void linked list." << endl;
+    else if (head->next == NULL){
+        cout << "ONLY ONE NODE"<< endl;
+        // only one node
+        if (head->data == key){
+            delete(head);
+            head = NULL;
+            tail = NULL;
+        }
+    }
+    else if (head->next == tail){
+        cout << "TWO NODES" << endl;
+        // there ara two nodes
+        if (head->data == key){
+            cout << "BYE HEAD" << endl;
+            head = tail;
+            tail->previus = NULL;
+        }
+        else if (tail->data == key){
+            cout << "BYE TAIL" << endl;
+            tail = head;
+            head->next = NULL;           
+        }
+    }
+    else if (head->data == key){
+        cout << "more than two node, the first"<< endl;
+        // if first node
+        toDelete = head;
+        head = head->next;
+        head->previus = NULL;
+        delete (toDelete);
+    }
+    else if (tail->data == key){
+        cout <<"more than two nodes, the last" << endl;
+        // if it is the last node
+        toDelete = tail;
+        tail = tail->previus;
+        tail->next = NULL;
+        delete(toDelete);
+    }
+    else {
+        cout << "MORE THAN TWO"<<endl;
+        // more than two nodes
+        Node *ptr = new Node();
+        ptr = head;
+        while (ptr->next != NULL){
+            if (ptr->data == key) {
+                cout << "SE HA ENCONTRADO" << endl;
+                break;
+            }
+            ptr = ptr->next;
+        }
+        //cout << "HEAD: " << ptr->data;
+        (ptr->next)->previus = ptr->previus;
+        (ptr->previus)->next = ptr->next;
+        delete(ptr);
     }
 }
 
