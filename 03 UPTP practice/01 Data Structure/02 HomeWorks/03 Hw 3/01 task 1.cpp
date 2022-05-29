@@ -284,6 +284,34 @@ class DLinkedList{
                 delete(ptr);
             }
         }
+
+        void sortingList(){
+    // with selection sort
+    /*	Node *i, *j, *small;
+	int tmp;
+	i = head;
+	while (i->next != NULL){ 
+		cout << i-> data << ", ";
+        j = i->next;
+        small= j;
+		while(j != NULL){
+            cout << "\n\t: ";
+			cout << j -> data <<"/ ";
+            if (small->data > j->data){
+                small = j;
+            }
+            j = j->next;
+		}
+        cout << endl << "\tSmallest: " << small->data;
+        tmp = i->data;
+        i->data = small->data;
+        small->data = tmp;
+        cout << endl << "\tswaped: " << i->data << ", " << small->data;
+        cout << endl;
+		i = i->next;
+	}*/
+}
+
     
         // Auxiliar method
         void displayListMemory(){
