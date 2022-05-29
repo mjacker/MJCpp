@@ -321,8 +321,8 @@ class DLinkedList{
                 cout << "------------------------------------------------" << endl;
                 cout << "Displaying Forward mode: " << endl;
                 do { 
-                    cout << setw(5) << ptr->data;
-                    if (ptr->next != NULL) cout << setw(5) << "<-->"; 
+                    cout << setw(3) << ptr->data;
+                    if (ptr->next != NULL) cout << setw(3) << "<->"; 
                     ptr = ptr->next;
                 } while (ptr != NULL);
                 //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
@@ -339,8 +339,8 @@ class DLinkedList{
                 cout << "------------------------------------------------" << endl;
                 cout << "Displaying Reverse mode: " << endl;
                 do { 
-                    cout << setw(5) << ptr->data;
-                    if (ptr->prev != NULL) cout << setw(5) << "<-->";
+                    cout << setw(3) << ptr->data;
+                    if (ptr->prev != NULL) cout << setw(3) << "<->";
                     ptr = ptr->prev;
                 } while (ptr != NULL);
                 //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
@@ -383,6 +383,7 @@ int main(void)
     // Instanciate Objects
     DLinkedList myLinkedList;
 
+    /*//manyally testing
     myLinkedList.insertAnode(10);
     myLinkedList.insertAtBeginning(20);
     myLinkedList.insertAtEnd(30);
@@ -394,10 +395,85 @@ int main(void)
     myLinkedList.insertAtEnd(22);
     myLinkedList.insertAtEnd(33);
     myLinkedList.insertAtEnd(44);
-    //myLinkedList.displayListMemory();
+    myLinkedList.displayListMemory();
     myLinkedList.displayListForward();
-    myLinkedList.displayListReverse();
+    myLinkedList.displayListReverse();*/
 
+    system("cls"); // clear screen 
+    
+    bool running = true;
+    int option;
+    int key, pos;
+    int defaultDisplay = true; // 1: Forward, 2: Reverse, 3: Memory Address (bonus).
+    while (running){
+        system("cls");
+        cout << " DATA STRUCTURE HOMEWORK 03 - " << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << "1) Insert a node. (Only insert a node when linked list is void.)" << endl;
+        cout << "2) Insert at beginning." << endl;
+        cout << "3) Insert at the end. " << endl;
+        cout << "4) Insert at specific position." << endl;
+        cout << "5) Deletion at the beginning. " << endl;
+        cout << "6) Deletion at the end." << endl;
+        cout << "7) Deletion by given value." << endl;
+        cout << "8) Sort the linked list." << endl;
+        cout << "9) Display Linked List - Forward." << endl;
+        cout << "10) Display Linked List - Reverse." << endl;
+        cout << "0) Exit." << endl;
+
+        // Default selecte display
+        if (defaultDisplay == 1) myLinkedList.displayListForward();
+        else if (defaultDisplay == 2) myLinkedList.displayListReverse();
+        else myLinkedList.displayListMemory();
+
+        cout << " >> "; cin >> option;
+        switch (option){
+        case 0:
+            running = false;
+            break;
+        case 1:
+            cout << "Insert a integer number: "; cin >> key;
+            myLinkedList.insertAnode(key);
+            break;
+        case 2:
+            cout << "Insert a integer number: "; cin >> key;
+             myLinkedList.insertAtBeginning(key);
+            break;
+        case 3:
+            cout << "Insert a integer number:"; cin >> key;
+            myLinkedList.insertAtEnd(key);
+            break;
+        case 4:
+            cout << "Insert a integer number: "; cin >> key;
+            cout << "Insert position to add number: "; cin >> pos;
+            myLinkedList.insertAtGiverPosition(key, pos); 
+            break;
+        case 5:
+            myLinkedList.deleteAtBeginning();
+            break;
+        case 6:
+            myLinkedList.deleteAtEnd();
+            break;
+        case 7:
+            cout << "What value do you want to delete? "; cin >> key;
+            myLinkedList.deleteAtGivenData(key);
+            break;
+        case 8:
+            cout << "Sorting not implemented.";
+            break;
+        case 9:
+            defaultDisplay = 1;
+            break;
+        case 10:
+            defaultDisplay = 2;
+            break;
+        case 11:
+            defaultDisplay = 3;
+            break;
+        default:
+            break;
+        }
+    }
 
     return 0;
 }
