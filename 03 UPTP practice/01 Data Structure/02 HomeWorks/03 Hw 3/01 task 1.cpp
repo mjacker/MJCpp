@@ -286,6 +286,7 @@ class DLinkedList{
         }
 
         void sortingList(){
+            cout << "Not implemented." << endl;
             // with selection sort
             /*	Node *i, *j, *small;
             int tmp;
