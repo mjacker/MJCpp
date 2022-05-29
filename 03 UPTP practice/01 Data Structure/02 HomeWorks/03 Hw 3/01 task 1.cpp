@@ -106,6 +106,78 @@ class DLinkedList{
                 tail = ptr;
             }
         }
+        /**
+         * @brief Insert a node at given position.
+         * @attention If positions is less than 1, will print just a message.
+         * @attention if position is greater than the number of nodes of current linked list
+         * then the node will be added at the end.
+         * 
+         * @param key 
+         * @param position 
+         */
+        void insertAtGiverPosition(int key, int position){
+            if (position < 1){
+                cout << "Position should be greater or equal than 1." << endl;;
+            }
+            else{
+                // if head and tail are NULL, this means the linked list is empty.
+                // so this method call to insertAnode to handle it.
+                if (head == NULL && tail == NULL) {
+                    //cout <<"TOTALMENTE VACIO" << endl;
+                    insertAnode(key);
+                }
+                // this means there is only one node in current linked list.
+                // so nodes are connected manually.
+                else if (head->next == NULL && position == 1){
+                    //cout<< "SOLO UN NODO"<< endl;
+
+                    // creating new node
+                    head->prev = new Node();
+                    head->prev->prev = NULL;
+                    head->prev->data = key;
+                    head->prev->next = head;
+
+                    //conectng head and tail yo new node.
+                    head = head->prev;
+                    tail = head->next;   
+                }
+                // this means there are more than two nodes, but
+                // we need to add the new node to the first node.
+                else if (head->next != NULL && position == 1){
+                    //cout << "DOS NODOS" << endl;
+                    Node *ptr = new Node();
+                    ptr->prev = NULL;
+                    ptr->data = key;
+                    ptr->next = head;
+                    head->prev = ptr;
+                    head = ptr;
+                }
+                // this means we do have more than two nodes, 
+                // and we are trying to add a new node in a position
+                // greater than 1, so the linked list is iterated to find
+                // that position.
+                else {
+                    //cout<<"MAS DE UN NODO"<< endl;
+                    Node *ptrpass = new Node();
+                    ptrpass = head;
+                    for (int i = 1; i < position - 1; i++){
+                        if (ptrpass->next != NULL)
+                            ptrpass = ptrpass->next;
+                    }
+
+                    // created new node
+                    Node * ptr = new Node();
+                    ptr->prev = ptrpass;
+                    ptr->data = key;
+                    ptr->next = ptrpass->next;
+
+                    // connecting nodes
+                    ptrpass->next = ptr;
+                    if (ptr->next != NULL)
+                        (ptr->next)->prev = ptr;
+                }
+            }
+        }
     
         // Auxiliar method
         void displayListMemory(){
@@ -142,6 +214,8 @@ int main(void)
     myLinkedList.insertAnode(10);
     myLinkedList.insertAtBeginning(20);
     myLinkedList.insertAtEnd(30);
+    myLinkedList.insertAtGiverPosition(40, 2); // if position is greater than number of nodes
+                                               // the program will crash.
     myLinkedList.displayListMemory();
 
     return 0;
