@@ -54,7 +54,7 @@ class DLinkedList{
          * 
          * @pre Precondition: Need at least one node existing on current linked list.
          * 
-         * @param key 
+         * @param key is used to take a data from the user and save it to data field.
          */
         void insertAtBeginning(int key){
             if (head == NULL) insertAnode(key); // If user tray to add at the beginning,
@@ -74,9 +74,37 @@ class DLinkedList{
                 head = ptr; 
             }
         }
-
+        /**
+         * @brief Insert a node at the end of the linked list, if the node is Empty 
+         * when this methods is called, so this method will call to the method insertAnode
+         * to handle it.
+         * 
+         * @param key is used to take a data from the user and save it to data field.
+         */
         void insertAtEnd(int key){
-            
+            Node *ptrpass = new Node(); // just a pointer iterator.
+            if (head == NULL) /*cout << "VACIO:" << endl;*/insertAnode(key);// If user tray to add at the beginning,
+                                                // but there are not nodes yet, so we call
+                                                // first to insertAnode to handle it. 
+            else  {
+                // creating new node - this node will be the new last node.
+                Node *ptr = new Node();
+                ptr->next = NULL;
+                ptr->data = key;
+
+                // Find the actual last node
+                ptrpass = head;
+                while (ptrpass->next != NULL){
+                    ptrpass = ptrpass->next;
+                } 
+
+                // conecting old last node with new last node
+                ptrpass->next = ptr;    // the next of olf last node is the new last node
+                ptr->prev = ptrpass;    // the previous of the new last node is the old last node.
+
+                // update tail
+                tail = ptr;
+            }
         }
     
         // Auxiliar method
@@ -113,6 +141,7 @@ int main(void)
 
     myLinkedList.insertAnode(10);
     myLinkedList.insertAtBeginning(20);
+    myLinkedList.insertAtEnd(30);
     myLinkedList.displayListMemory();
 
     return 0;
