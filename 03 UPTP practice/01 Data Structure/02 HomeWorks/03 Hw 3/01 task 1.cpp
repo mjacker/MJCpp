@@ -199,6 +199,28 @@ class DLinkedList{
                 delete(ptrToDelete); 
             }
         }
+
+        void deleteAtEnd(){
+            if (tail == NULL && head == NULL) cout << "You can't delete a void linked list." << endl;
+            else if (tail->prev == NULL){
+                // the last node
+                cout << "The element " << tail->data << " will be deleted." << endl;
+                delete(tail);
+                head = NULL;
+                tail = NULL;
+            }
+            else {
+                Node *ptrToDelete = new Node();
+                Node *ptrpass = new Node();
+
+                ptrToDelete = tail;
+                ptrpass = tail->prev;
+                tail = ptrpass;
+                tail->next = NULL;
+                cout << "The element " << ptrToDelete->data << " will be deleted." << endl;
+                delete(ptrToDelete);
+            }
+        }
     
         // Auxiliar method
         void displayListMemory(){
@@ -237,6 +259,7 @@ int main(void)
     myLinkedList.insertAtEnd(30);
     myLinkedList.insertAtGiverPosition(40, 2); 
     myLinkedList.deleteAtBeginning();
+    myLinkedList.deleteAtEnd();
     myLinkedList.displayListMemory();
 
     return 0;
