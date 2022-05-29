@@ -1,6 +1,6 @@
-/** DATA Structure - 2022/04/15
+/** DATA Structure - 2028/05/28
  * @student:            MJacker, IFE
- * @topic:              
+ * @topic:              DSHW03
  * @profesor:           Dr. Binayak Kar
  * @teacherasistand:    Horacio Sosa
  */
@@ -224,7 +224,7 @@ class DLinkedList{
 
         void deleteAtGivenData(int key){
             Node *toDelete = new Node();
-            if (head == NULL && tail == NULL) cout << "List is empty" << endl;
+            if (head == NULL && tail == NULL) cout << "List is empty." << endl;
             else if (head->next == NULL){
                 //cout << "ONLY ONE NODE"<< endl;
                 // only one node
@@ -331,6 +331,24 @@ class DLinkedList{
             }
         }
 
+        void displayListReverse(){
+            Node *ptr = new Node;
+            if (tail == NULL) cout << "Empty double linked list" << endl;
+            else{
+                ptr = tail;
+                cout << "------------------------------------------------" << endl;
+                cout << "Displaying Reverse mode: " << endl;
+                do { 
+                    cout << setw(5) << ptr->data;
+                    if (ptr->prev != NULL) cout << setw(5) << "<-->";
+                    ptr = ptr->prev;
+                } while (ptr != NULL);
+                //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
+                cout << endl;
+                cout << "------------------------------------------------" << endl;
+            }
+        }
+
 
     
         // Auxiliar method
@@ -378,6 +396,8 @@ int main(void)
     myLinkedList.insertAtEnd(44);
     //myLinkedList.displayListMemory();
     myLinkedList.displayListForward();
+    myLinkedList.displayListReverse();
+
 
     return 0;
 }
