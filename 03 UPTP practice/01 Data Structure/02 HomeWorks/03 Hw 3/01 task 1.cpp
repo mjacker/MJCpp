@@ -286,31 +286,51 @@ class DLinkedList{
         }
 
         void sortingList(){
-    // with selection sort
-    /*	Node *i, *j, *small;
-	int tmp;
-	i = head;
-	while (i->next != NULL){ 
-		cout << i-> data << ", ";
-        j = i->next;
-        small= j;
-		while(j != NULL){
-            cout << "\n\t: ";
-			cout << j -> data <<"/ ";
-            if (small->data > j->data){
-                small = j;
+            // with selection sort
+            /*	Node *i, *j, *small;
+            int tmp;
+            i = head;
+            while (i->next != NULL){ 
+                cout << i-> data << ", ";
+                j = i->next;
+                small= j;
+                while(j != NULL){
+                    cout << "\n\t: ";
+                    cout << j -> data <<"/ ";
+                    if (small->data > j->data){
+                        small = j;
+                    }
+                    j = j->next;
+                }
+                cout << endl << "\tSmallest: " << small->data;
+                tmp = i->data;
+                i->data = small->data;
+                small->data = tmp;
+                cout << endl << "\tswaped: " << i->data << ", " << small->data;
+                cout << endl;
+                i = i->next;
+            }*/
+        }
+
+        void displayListForward(){
+            Node *ptr = new Node;
+            int p = 1;
+            if (head == NULL && tail == NULL) cout << "Empty double linked list" << endl;
+            else{
+                ptr = head;
+                cout << "------------------------------------------------" << endl;
+                cout << "Displaying Forward mode: " << endl;
+                do { 
+                    cout << setw(5) << ptr->data;
+                    if (ptr->next != NULL) cout << setw(5) << "<-->"; 
+                    ptr = ptr->next;
+                } while (ptr != NULL);
+                //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
+                cout << endl;
+                cout << "------------------------------------------------" << endl;
             }
-            j = j->next;
-		}
-        cout << endl << "\tSmallest: " << small->data;
-        tmp = i->data;
-        i->data = small->data;
-        small->data = tmp;
-        cout << endl << "\tswaped: " << i->data << ", " << small->data;
-        cout << endl;
-		i = i->next;
-	}*/
-}
+        }
+
 
     
         // Auxiliar method
@@ -352,7 +372,12 @@ int main(void)
     myLinkedList.deleteAtBeginning();
     myLinkedList.deleteAtEnd();
     myLinkedList.deleteAtGivenData(10);
-    myLinkedList.displayListMemory();
+    myLinkedList.insertAtEnd(11);
+    myLinkedList.insertAtEnd(22);
+    myLinkedList.insertAtEnd(33);
+    myLinkedList.insertAtEnd(44);
+    //myLinkedList.displayListMemory();
+    myLinkedList.displayListForward();
 
     return 0;
 }
