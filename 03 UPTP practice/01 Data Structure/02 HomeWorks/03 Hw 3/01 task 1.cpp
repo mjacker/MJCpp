@@ -201,7 +201,7 @@ class DLinkedList{
         }
 
         void deleteAtEnd(){
-            if (tail == NULL && head == NULL) cout << "You can't delete a void linked list." << endl;
+            if (tail == NULL && head == NULL) cout << "List is empty" << endl;
             else if (tail->prev == NULL){
                 // the last node
                 cout << "The element " << tail->data << " will be deleted." << endl;
@@ -219,6 +219,69 @@ class DLinkedList{
                 tail->next = NULL;
                 cout << "The element " << ptrToDelete->data << " will be deleted." << endl;
                 delete(ptrToDelete);
+            }
+        }
+
+        void deleteAtGivenData(int key){
+            Node *toDelete = new Node();
+            if (head == NULL && tail == NULL) cout << "List is empty" << endl;
+            else if (head->next == NULL){
+                //cout << "ONLY ONE NODE"<< endl;
+                // only one node
+                if (head->data == key){
+                    cout << "The element " << head->data << " will be deleted." << endl;
+                    delete(head);
+                    head = NULL;
+                    tail = NULL;
+                }
+            }
+            else if (head->next == tail){
+                //cout << "TWO NODES" << endl;
+                // there ara two nodes
+                if (head->data == key){
+                    cout << "BYE HEAD" << endl;
+                    head = tail;
+                    tail->prev = NULL;
+                }
+                else if (tail->data == key){
+                    //cout << "BYE TAIL" << endl;
+                    tail = head;
+                    head->next = NULL;           
+                }
+            }
+            else if (head->data == key){
+                //cout << "more than two node, the first"<< endl;
+                // if first node
+                toDelete = head;
+                head = head->next;
+                head->prev = NULL;
+                delete (toDelete);
+            }
+            else if (tail->data == key){
+                //cout <<"more than two nodes, the last" << endl;
+                // if it is the last node
+                toDelete = tail;
+                tail = tail->prev;
+                tail->next = NULL;
+                delete(toDelete);
+            }
+            else {
+                //cout << "MORE THAN TWO"<<endl;
+                // more than two nodes
+                Node *ptr = new Node();
+                ptr = head;
+                while (ptr->next != NULL){
+                    if (ptr->data == key) {
+                        //cout << "ITEM FOUND" << endl;
+                        break;
+                    }
+                    ptr = ptr->next;
+                }
+                //cout << "HEAD: " << ptr->data;
+                (ptr->next)->prev = ptr->prev;
+                (ptr->prev)->next = ptr->next;
+                cout << "The element " << ptr->data << " will be deleted." << endl;
+                delete(ptr);
             }
         }
     
@@ -260,6 +323,7 @@ int main(void)
     myLinkedList.insertAtGiverPosition(40, 2); 
     myLinkedList.deleteAtBeginning();
     myLinkedList.deleteAtEnd();
+    myLinkedList.deleteAtGivenData(10);
     myLinkedList.displayListMemory();
 
     return 0;
