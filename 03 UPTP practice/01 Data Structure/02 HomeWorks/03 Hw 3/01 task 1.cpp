@@ -286,31 +286,59 @@ class DLinkedList{
         }
 
         void sortingList(){
-            cout << "Not implemented." << endl;
+            // cout << "Not implemented." << endl;
             // with selection sort
-            /*	Node *i, *j, *small;
-            int tmp;
-            i = head;
-            while (i->next != NULL){ 
-                cout << i-> data << ", ";
-                j = i->next;
-                small= j;
-                while(j != NULL){
-                    cout << "\n\t: ";
-                    cout << j -> data <<"/ ";
-                    if (small->data > j->data){
-                        small = j;
-                    }
-                    j = j->next;
+            // 3 33 3 99 3 88 3 22 3 77 3 44 3 11 3 55
+            // 3 10 3 30 3 20
+
+            int tmp; // for swap values
+            // If linked es empty.
+            if (tail == NULL && head == NULL) cout << "List is empty" << endl;
+            // If there ara only two nodes
+            else if (head->next == tail){
+                cout << "SOLO DOS NODOS" << endl;
+                if (head->data > tail->data){
+                    tmp = head->data;
+                    head->data = tail->data;
+                    tail->data = tmp;
                 }
-                cout << endl << "\tSmallest: " << small->data;
-                tmp = i->data;
-                i->data = small->data;
-                small->data = tmp;
-                cout << endl << "\tswaped: " << i->data << ", " << small->data;
-                cout << endl;
-                i = i->next;
-            }*/
+            }
+            else{
+                Node *i, *j, *small;
+                i = head;
+                //printNode(i);
+                while (i->next != NULL){ 
+                    displayListForward();
+                    cout << "i: " <<  i-> data << ":" << endl;
+                    j = i->next;
+                    //printNode(j);
+                    small = j;
+                    while(j != NULL){
+                        cout <<"########"<< endl;
+                        cout << "j: " << ": " << j -> data <<"/ "<< endl;
+                        cout << small ->data << ">" << j->data << "?" << ((small->data > j->data)?"yes":"no") << endl;;
+                        if (small->data > j->data){
+                            small = j;
+                        }
+                        j = j->next;
+                    }
+                    cout << endl << "\tSmallest: " << small->data;
+                    if (i->data > small->data){
+                        tmp = i->data;
+                        i->data = small->data;
+                        small->data = tmp;
+                    }
+                        cout << endl;
+                        i = i->next;
+                }
+                // check the last two nodes
+                //if (tail->prev != NULL){
+                //    if (tail->prev->data > tail->data);
+                //        tmp = tail->prev->data;
+                //        tail->prev->data = tail->data;
+                //        tail->data = tmp;
+                //}
+            }
         }
 
         void displayListForward(){
@@ -372,6 +400,17 @@ class DLinkedList{
                 cout << "------------------------------------------------" << endl;
             }
         }
+
+        void printNode(Node *node){
+        if (node == NULL) cout << "Node NULL" << endl;
+        else {
+            Node *ptr = new Node;
+            ptr = node;
+            cout << "[" << ptr->prev << " <-- ";
+            cout << ptr->data;
+            cout << " --> " << ptr->next  << "]" << endl;
+        }
+    }
 };
 
 
@@ -407,7 +446,7 @@ int main(void)
     int key, pos;
     int defaultDisplay = true; // 1: Forward, 2: Reverse, 3: Memory Address (bonus).
     while (running){
-        system("cls");
+        //system("cls");
         cout << " DATA STRUCTURE HOMEWORK 03 - " << endl;
         cout << "------------------------------------------------" << endl;
         cout << "1) Insert a node. (Only insert a node when linked list is void.)" << endl;
@@ -460,7 +499,7 @@ int main(void)
             myLinkedList.deleteAtGivenData(key);
             break;
         case 8:
-            cout << "Sorting not implemented.";
+            myLinkedList.sortingList();
             break;
         case 9:
             defaultDisplay = 1;
