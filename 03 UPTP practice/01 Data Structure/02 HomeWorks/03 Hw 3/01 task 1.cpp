@@ -291,45 +291,53 @@ class DLinkedList{
             // 3 33 3 99 3 88 3 22 3 77 3 44 3 11 3 55
             // 3 10 3 30 3 20
 
+            int tmp; // for swap values
             // If linked es empty.
             if (tail == NULL && head == NULL) cout << "List is empty" << endl;
             // If there ara only two nodes
             else if (head->next == tail){
-                if (head->data > tail->data)
-            }
-
-            Node *i, *j, *small;
-            int tmp;
-            i = head;
-            //printNode(i);
-            while (i->next != NULL){ 
-                displayListForward();
-                cout << i-> data << ", ";
-                j = i->next;
-                //printNode(j);
-                small= j;
-                while(j != NULL){
-                    cout << "\n\t: ";
-                    cout << j -> data <<"/ ";
-                    if (small->data > j->data){
-                        small = j;
-                    }
-                    j = j->next;
-                }
-                cout << endl << "\tSmallest: " << small->data;
-                tmp = i->data;
-                i->data = small->data;
-                small->data = tmp;
-                cout << endl << "\tswaped: " << i->data << ", " << small->data;
-                cout << endl;
-                i = i->next;
-            }
-            // check the last two nodes
-            if (tail->prev != NULL){
-                if (tail->prev->data > tail->data);
-                    tmp = tail->prev->data;
-                    tail->prev->data = tail->data;
+                cout << "SOLO DOS NODOS" << endl;
+                if (head->data > tail->data){
+                    tmp = head->data;
+                    head->data = tail->data;
                     tail->data = tmp;
+                }
+            }
+            else{
+                Node *i, *j, *small;
+                i = head;
+                //printNode(i);
+                while (i->next != NULL){ 
+                    displayListForward();
+                    cout << "i: " <<  i-> data << ":" << endl;
+                    j = i->next;
+                    //printNode(j);
+                    small = j;
+                    while(j != NULL){
+                        cout <<"########"<< endl;
+                        cout << "j: " << ": " << j -> data <<"/ "<< endl;
+                        cout << small ->data << ">" << j->data << "?" << ((small->data > j->data)?"yes":"no") << endl;;
+                        if (small->data > j->data){
+                            small = j;
+                        }
+                        j = j->next;
+                    }
+                    cout << endl << "\tSmallest: " << small->data;
+                    if (i->data > small->data){
+                        tmp = i->data;
+                        i->data = small->data;
+                        small->data = tmp;
+                    }
+                        cout << endl;
+                        i = i->next;
+                }
+                // check the last two nodes
+                //if (tail->prev != NULL){
+                //    if (tail->prev->data > tail->data);
+                //        tmp = tail->prev->data;
+                //        tail->prev->data = tail->data;
+                //        tail->data = tmp;
+                //}
             }
         }
 
