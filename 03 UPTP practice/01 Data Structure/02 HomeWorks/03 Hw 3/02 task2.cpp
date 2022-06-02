@@ -44,7 +44,15 @@ Node* polynomialAdd(Node *head1, Node *head2){
         cout << " r: ";printPolinomial(tail);
         cout << "________________" << endl<< endl ;
 
-        if (p1->power > p2->power){
+        if (p1->coefficient == 0){
+            cout << "BOOOM!" << endl;
+            p1 = p1->next;
+        }
+        else if (p2->coefficient == 0){
+            cout << "BOOM2!!" << endl;
+            p2 = p2->next;
+        }
+        else if (p1->power > p2->power){
             cout << "FLAG p1 mayor" << p1->power << ">" << p2->power << endl;
             tail = append(tail, p1->power, p1->coefficient);
             //printPolinomial(tail);
@@ -121,7 +129,7 @@ int main(void){
     poly1->next = new Node();*/
 
     Node *term1 = new Node(); term1->coefficient = 1; term1->power = 4;
-    Node *term2 = new Node(); term2->coefficient = 7; term2->power = 3;
+    Node *term2 = new Node(); term2->coefficient = 0; term2->power = 0;
     Node *term3 = new Node(); term3->coefficient =-3; term3->power = 2;
     Node *term4 = new Node(); term4->coefficient = 1; term4->power = 1;
     Node *term5 = new Node(); term5->coefficient = 1; term5->power = 0;    
@@ -164,7 +172,7 @@ int main(void){
     resul = polynomialAdd(poly1, poly2);
     //cout << "TEMP: " << resul << endl;
 
-    cout << endl << "La suma de ambos polinomios es: " << endl;
+    cout << endl << "The adition of both polynomial is: " << endl;
     printPolinomial(resul);
 
     return 0;
