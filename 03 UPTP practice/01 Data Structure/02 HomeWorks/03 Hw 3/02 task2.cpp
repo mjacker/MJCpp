@@ -12,8 +12,8 @@ struct Node{
 void printPolinomial(Node *ptr);
 
 Node* append(Node *tail, int power, int coefficient){
-    Node *ptr = new Node();
-    ptr = tail;
+    //Node *ptr = new Node();
+    //ptr = tail;
 
     // new node
     Node * newNode = new Node();
@@ -22,12 +22,12 @@ Node* append(Node *tail, int power, int coefficient){
     newNode->next = NULL;
 
     // conect tail to new node;
-    if (ptr != NULL){
-        ptr->next = newNode;
+    if (tail != NULL){
+        tail->next = newNode;
     }
-    else 
-        ptr = newNode; // MISSING FROM PSEDO-CODE
-    return ptr;
+    //else 
+    //    tail = newNode; // MISSING FROM PSEDO-CODE
+    return newNode;
 }
 
 Node* polynomialAdd(Node *head1, Node *head2){
@@ -37,17 +37,27 @@ Node* polynomialAdd(Node *head1, Node *head2){
     Node *p1 = head1;
     Node *p2 = head2;
     int coefficient;
-    while (p1 != NULL && p2 != NULL)
-    {
+    while (p1 != NULL && p2 != NULL){
+        cout << "p1: "; printPolinomial(p1);
+        cout << "p2: "; printPolinomial(p2);
+        cout << "---------------------------" << endl;
+        cout << " r: ";printPolinomial(tail);
+        cout << "________________" << endl<< endl ;
+
         if (p1->power > p2->power){
+            cout << "FLAG p1 mayor" << p1->power << ">" << p2->power << endl;
             tail = append(tail, p1->power, p1->coefficient);
+            //printPolinomial(tail);
             p1 = p1->next;
+
         }
         else if(p2->power > p1->power){
+            cout << "FLAG2 p2 mayor" << p2->power << ">" << p1->power << endl;
             tail = append(tail, p2->power, p2->coefficient);
             p2 = p2->next;
         }
         else{
+            cout << "FLAG3 iguales" << p1->power << "=" << p2->power << endl;
             coefficient = p1->coefficient + p2->coefficient;
             if (coefficient != 0){
                 tail = append(tail, p1->power, coefficient);
@@ -55,20 +65,23 @@ Node* polynomialAdd(Node *head1, Node *head2){
             p1 = p1->next;
             p2 = p2->next;
         } 
-
+    
         if (head == NULL){
+            //cout << "FLAG Head" << endl;
             head = tail;
         }
+    }
 
-        while(p1 != NULL){
-            tail = append(tail, p1->power, p1->coefficient);
-            p1 = p1->next;
-        }
+    printPolinomial(tail);
 
-        while(p1 != NULL){
-            tail = append(tail, p2->power, p2->coefficient);
-            p2 = p2->next;
-        }
+    while(p1 != NULL){
+        tail = append(tail, p1->power, p1->coefficient);
+        p1 = p1->next;
+    }
+
+    while(p1 != NULL){
+        tail = append(tail, p2->power, p2->coefficient);
+        p2 = p2->next;
     }
 
     return head;
@@ -108,7 +121,7 @@ int main(void){
     poly1->next = new Node();*/
 
     Node *term1 = new Node(); term1->coefficient = 1; term1->power = 4;
-    Node *term2 = new Node(); term2->coefficient = 0; term2->power = 0;
+    Node *term2 = new Node(); term2->coefficient = 7; term2->power = 3;
     Node *term3 = new Node(); term3->coefficient =-3; term3->power = 2;
     Node *term4 = new Node(); term4->coefficient = 1; term4->power = 1;
     Node *term5 = new Node(); term5->coefficient = 1; term5->power = 0;    
@@ -133,7 +146,7 @@ int main(void){
     poly2->power = 4;*/
 
     term1 = new Node(); term1->coefficient = 1; term1->power = 3;
-    term2 = new Node(); term2->coefficient =-1; term2->power = 3;
+    term2 = new Node(); term2->coefficient =-1; term2->power = 2;
     term3 = new Node(); term3->coefficient = 5; term3->power = 1;
     term4 = new Node(); term4->coefficient =-2; term4->power = 0;
     term1->next = term2;
@@ -151,6 +164,7 @@ int main(void){
     resul = polynomialAdd(poly1, poly2);
     //cout << "TEMP: " << resul << endl;
 
+    cout << endl << "La suma de ambos polinomios es: " << endl;
     printPolinomial(resul);
 
     return 0;
