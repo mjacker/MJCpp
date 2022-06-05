@@ -22,9 +22,8 @@ class Fraction{
 
         // Functions methods
 
-        void enterFractionValue(int numeratorArg, int denominatorArg){
-            this->numerator = numeratorArg;;
-            this->denominator = denominatorArg;
+        void enterFractionValue(/*int numeratorArg, int denominatorArg*/){
+           cin >> *this; 
         }
 
         void displayFraction(){
@@ -35,8 +34,11 @@ class Fraction{
 istream& operator>>(istream &in, Fraction &fract){
     cout << "Numerator: ";
     in >> fract.numerator;
-    cout << "Denominator: ";
-    in >> fract.denominator;
+    do {
+        cout << "Denominator: ";
+        in >> fract.denominator;
+        if (fract.denominator == 0) cout << "Denominator can not be zero!." << endl << "Try again: " << endl;
+    } while (fract.denominator == 0);
     return in;
 }
 
@@ -51,7 +53,7 @@ const string Fraction::SYMBOL = "/";
 int main(void){
     Fraction fraction1;
 
-    fraction1.enterFractionValue(10, 20);
+    fraction1.enterFractionValue();
     fraction1.displayFraction();
 
     //cin << fraction1;
