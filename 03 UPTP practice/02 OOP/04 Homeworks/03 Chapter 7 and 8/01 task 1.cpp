@@ -3,6 +3,8 @@ using namespace std;
 
 // Class declarations
 class Fraction{
+    //friend functions:
+        friend istream& operator>>(istream &in, Fraction &fract);
     private:
         int number;
         int numerator;
@@ -12,23 +14,13 @@ class Fraction{
     public:
         // Constructors
         Fraction(){
-
+            this->number = 0;
+            this->numerator = 0;
+            this->denominator = 0;
         }
-        //Fraction(int = 0, int = 0, int = 0, const string = "/");
-        //Fraction(int numeratorArg, int denominatorArg);
-        //Fraction(int number, int numerator, int denominator);
 
         // Functions methods
-        /*void enterFractionValue();
-        void reduceFraction();
-        void displayFraction();        */
 
-        // Implementation
-        Fraction(int numeratorArg, int denominatorArg){
-            this->numerator = numeratorArg;
-            this->denominator = denominatorArg;
-            const string SYMBOL = "/";
-        }
         void enterFractionValue(int numeratorArg, int denominatorArg){
             this->numerator = numeratorArg;;
             this->denominator = denominatorArg;
@@ -38,6 +30,12 @@ class Fraction{
             cout << this->numerator << this->SYMBOL << this->denominator << endl;
         }
 };
+
+istream& operator>>(istream &in, Fraction &fract){
+    cout << "Numerator: ";
+    in >> fract.numerator;
+    return in;
+}
 
 // Assigning value to a static constant
 const string Fraction::SYMBOL = "/";
