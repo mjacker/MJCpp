@@ -21,9 +21,46 @@ class Fraction{
         }
 
         // Functions methods
-
         void enterFractionValue(/*int numeratorArg, int denominatorArg*/){
            cin >> *this; 
+        }
+
+        /**
+         * @brief Reduces a Fraction to preoper form, For example, 
+         * a Fraction with the value 0 2/6 would be reducted to 0 1/3 and a
+         * Fraction with the value 4 18/4 would be reduced to 8 1/2.
+         */
+        void reduceFraction(){
+            // reducing fraction
+            int newInteger = this->number, newNumerator; // avoiding overwriting when doing calculations
+            if (this->numerator > this->denominator){
+                newInteger += (int) (this->numerator / this->denominator);
+                newNumerator = (this->numerator % this->denominator);
+                this->number= newInteger;
+                this->numerator = newNumerator;
+            
+            // simplify
+            // choosing the lowest value between numerator and denominator in min
+            int min;
+            if (this->numerator > this->denominator)
+                min = this->denominator;
+            else min = this->numerator;
+
+            // If numerator and denominator are divisible by i then divide numerator and denominator
+            for (int i = 1; i <= min; i++){
+                if (((this->numerator % i) == 0) && ((this->denominator % i) == 0)){
+                    this->numerator = (this->numerator) / i;
+                    this->denominator = (this->denominator) / i;
+                    i = 1;
+                }
+            }
+
+            // special case when both numerator and denominator has the same value
+            if (this->numerator == 1 && this->denominator == 1){
+                this->number++;
+                this->numerator = 0;
+            } 
+    }
         }
 
         void displayFraction(){
@@ -43,7 +80,12 @@ istream& operator>>(istream &in, Fraction &fract){
 }
 
 ostream& operator<<(ostream &out, const Fraction &fract){
-    out << fract.numerator << fract.SYMBOL << fract.denominator << endl;
+    // out << fract.number << " " << fract.numerator << fract.SYMBOL << fract.denominator << endl;
+    out << endl; // cleaning out
+    if (fract.number == 0 && fract.numerator == 0) out << "0";
+    else if (fract.number > 0 && fract.numerator == 0) out << fract.number;
+    else if (fract.number == 0 && fract.numerator > 0) out << fract.numerator << fract.SYMBOL << fract.denominator;
+    else out << fract.number << " " << fract.numerator << fract.SYMBOL << fract.denominator; 
     return out;
 }
 
@@ -54,6 +96,8 @@ int main(void){
     Fraction fraction1;
 
     fraction1.enterFractionValue();
+    fraction1.displayFraction();
+    fraction1.reduceFraction();
     fraction1.displayFraction();
 
     //cin << fraction1;
