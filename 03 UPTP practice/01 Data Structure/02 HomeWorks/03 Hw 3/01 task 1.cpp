@@ -9,7 +9,9 @@
 #include <iomanip> // setw(n)
 using namespace std;
 
-// Classes declarations
+// Global variable
+string MESSAGE = ""; // used to display error messages on loop menu
+
 class Node{
     public:
         Node *prev;
@@ -44,9 +46,14 @@ class DLinkedList{
          * @param key is used to take a data from the user and save it to data field.
          */
         void insertAnode(int key){
-            head = new Node();
-            head->data = key;
-            tail = head;
+            if (head != NULL) MESSAGE = "You can't add a node when Double linked list is not void.";
+            // If there ara only two nodes
+            else {
+                cout << "HEAD: " << head;
+                head = new Node();
+                head->data = key;
+                tail = head;
+            }
         }
 
         /**
@@ -117,7 +124,7 @@ class DLinkedList{
          */
         void insertAtGiverPosition(int key, int position){
             if (position < 1){
-                cout << "Position should be greater or equal than 1." << endl;;
+                MESSAGE = "Position should be greater or equal than 1.";
             }
             else{
                 // if head and tail are NULL, this means the linked list is empty.
@@ -180,7 +187,7 @@ class DLinkedList{
         }
 
         void deleteAtBeginning(){
-            if (head == NULL && tail == NULL) cout << "List is empty" << endl;
+            if (head == NULL && tail == NULL) MESSAGE = "List is empty";
             else if (head->next == NULL){
                 // the last node
                 cout << "The element " << head->data << " will be deleted." << endl;
@@ -201,7 +208,7 @@ class DLinkedList{
         }
 
         void deleteAtEnd(){
-            if (tail == NULL && head == NULL) cout << "List is empty" << endl;
+            if (tail == NULL && head == NULL) MESSAGE = "List is empty";
             else if (tail->prev == NULL){
                 // the last node
                 cout << "The element " << tail->data << " will be deleted." << endl;
@@ -224,7 +231,7 @@ class DLinkedList{
 
         void deleteAtGivenData(int key){
             Node *toDelete = new Node();
-            if (head == NULL && tail == NULL) cout << "List is empty." << endl;
+            if (head == NULL && tail == NULL) MESSAGE = "List is empty.";
             else if (head->next == NULL){
                 //cout << "ONLY ONE NODE"<< endl;
                 // only one node
@@ -293,7 +300,7 @@ class DLinkedList{
 
             int tmp; // for swap values
             // If linked es empty.
-            if (tail == NULL && head == NULL) cout << "List is empty" << endl;
+            if (tail == NULL && head == NULL) MESSAGE = "List is empty";
             // If there ara only two nodes
             else if (head->next == tail){
                 cout << "SOLO DOS NODOS" << endl;
@@ -344,16 +351,28 @@ class DLinkedList{
         void displayListForward(){
             Node *ptr = new Node;
             int p = 1;
-            if (head == NULL && tail == NULL) cout << "Empty double linked list" << endl;
+            if (head == NULL && tail == NULL); 
             else{
                 ptr = head;
                 cout << "------------------------------------------------" << endl;
                 cout << "Displaying Forward mode: " << endl;
+                // printing <data>
+                cout << "|  <data>  |";
                 do { 
                     cout << setw(3) << ptr->data;
                     if (ptr->next != NULL) cout << setw(3) << "<->"; 
                     ptr = ptr->next;
                 } while (ptr != NULL);
+
+                // printing <position>
+                cout << endl << "|<position>|";
+                ptr = head;
+                int pos = 1;
+                do {
+                    cout << setw(3) << pos << "   ";
+                    ptr = ptr->next;
+                    pos++;
+                } while (ptr!= NULL);
                 //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
                 cout << endl;
                 cout << "------------------------------------------------" << endl;
@@ -362,7 +381,7 @@ class DLinkedList{
 
         void displayListReverse(){
             Node *ptr = new Node;
-            if (tail == NULL) cout << "Empty double linked list" << endl;
+            if (tail == NULL) MESSAGE = "Empty double linked list";
             else{
                 ptr = tail;
                 cout << "------------------------------------------------" << endl;
@@ -384,7 +403,7 @@ class DLinkedList{
         void displayListMemory(){
             Node *ptr = new Node;
             int p = 1;
-            if (head == NULL && tail == NULL) cout << "Empty double linked list" << endl;
+            if (head == NULL && tail == NULL) MESSAGE = "Empty double linked list";
             else{
                 ptr = head;
                 cout << "------------------------------------------------" << endl;
@@ -402,7 +421,7 @@ class DLinkedList{
         }
 
         void printNode(Node *node){
-        if (node == NULL) cout << "Node NULL" << endl;
+        if (node == NULL) MESSAGE = "Node NULL";
         else {
             Node *ptr = new Node;
             ptr = node;
@@ -446,7 +465,7 @@ int main(void)
     int key, pos;
     int defaultDisplay = true; // 1: Forward, 2: Reverse, 3: Memory Address (bonus).
     while (running){
-        //system("cls");
+        system("cls");
         cout << " DATA STRUCTURE HOMEWORK 03 - " << endl;
         cout << "------------------------------------------------" << endl;
         cout << "1) Insert a node. (Only insert a node when linked list is void.)" << endl;
@@ -460,6 +479,8 @@ int main(void)
         cout << "9) Display Linked List - Forward." << endl;
         cout << "10) Display Linked List - Reverse." << endl;
         cout << "0) Exit." << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << MESSAGE << endl; MESSAGE = "";
 
         // Default selecte display
         if (defaultDisplay == 1) myLinkedList.displayListForward();
