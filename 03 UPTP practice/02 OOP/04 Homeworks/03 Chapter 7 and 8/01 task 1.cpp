@@ -5,6 +5,7 @@ using namespace std;
 class Fraction{
     //friend functions:
         friend istream& operator>>(istream &in, Fraction &fract);
+        friend ostream& operator<<(ostream &out, const Fraction &fract);
     private:
         int number;
         int numerator;
@@ -27,14 +28,21 @@ class Fraction{
         }
 
         void displayFraction(){
-            cout << this->numerator << this->SYMBOL << this->denominator << endl;
+            cout << *this;
         }
 };
 
 istream& operator>>(istream &in, Fraction &fract){
     cout << "Numerator: ";
     in >> fract.numerator;
+    cout << "Denominator: ";
+    in >> fract.denominator;
     return in;
+}
+
+ostream& operator<<(ostream &out, const Fraction &fract){
+    out << fract.numerator << fract.SYMBOL << fract.denominator << endl;
+    return out;
 }
 
 // Assigning value to a static constant
