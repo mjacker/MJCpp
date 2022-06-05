@@ -186,6 +186,10 @@ class DLinkedList{
             }
         }
 
+        /**
+         * @brief Delete a node at the beginning of the linked list
+         * 
+         */
         void deleteAtBeginning(){
             if (head == NULL && tail == NULL) MESSAGE = "List is empty";
             else if (head->next == NULL){
@@ -207,6 +211,10 @@ class DLinkedList{
             }
         }
 
+        /**
+         * @brief Delete a node at the end of the linked list. 
+         * 
+         */
         void deleteAtEnd(){
             if (tail == NULL && head == NULL) MESSAGE = "List is empty";
             else if (tail->prev == NULL){
@@ -229,6 +237,12 @@ class DLinkedList{
             }
         }
 
+        /**
+         * @brief Search the first node witch has the same value as key, then
+         * delete a node if it is found. 
+         * 
+         * @param key 
+         */
         void deleteAtGivenData(int key){
             Node *toDelete = new Node();
             if (head == NULL && tail == NULL) MESSAGE = "List is empty.";
@@ -292,18 +306,23 @@ class DLinkedList{
             }
         }
 
+        /**
+         * @brief Sort the linked list using selection sort 
+         * 
+         */
         void sortingList(){
             // cout << "Not implemented." << endl;
             // with selection sort
+            // testing values
             // 3 33 3 99 3 88 3 22 3 77 3 44 3 11 3 55
             // 3 10 3 30 3 20
 
             int tmp; // for swap values
             // If linked es empty.
-            if (tail == NULL && head == NULL) MESSAGE = "List is empty";
+            if (tail == NULL && head == NULL) MESSAGE = "ERROR!: Can't sort a empty List.";
             // If there ara only two nodes
             else if (head->next == tail){
-                cout << "SOLO DOS NODOS" << endl;
+                //cout << "SOLO DOS NODOS" << endl;
                 if (head->data > tail->data){
                     tmp = head->data;
                     head->data = tail->data;
@@ -315,21 +334,21 @@ class DLinkedList{
                 i = head;
                 //printNode(i);
                 while (i->next != NULL){ 
-                    displayListForward();
-                    cout << "i: " <<  i-> data << ":" << endl;
+                    //displayListForward();
+                    //cout << "i: " <<  i-> data << ":" << endl;
                     j = i->next;
                     //printNode(j);
                     small = j;
                     while(j != NULL){
-                        cout <<"########"<< endl;
-                        cout << "j: " << ": " << j -> data <<"/ "<< endl;
-                        cout << small ->data << ">" << j->data << "?" << ((small->data > j->data)?"yes":"no") << endl;;
+                        //cout <<"########"<< endl;
+                        //cout << "j: " << ": " << j -> data <<"/ "<< endl;
+                        //cout << small ->data << ">" << j->data << "?" << ((small->data > j->data)?"yes":"no") << endl;;
                         if (small->data > j->data){
                             small = j;
                         }
                         j = j->next;
                     }
-                    cout << endl << "\tSmallest: " << small->data;
+                    //cout << endl << "\tSmallest: " << small->data;
                     if (i->data > small->data){
                         tmp = i->data;
                         i->data = small->data;
@@ -338,13 +357,6 @@ class DLinkedList{
                         cout << endl;
                         i = i->next;
                 }
-                // check the last two nodes
-                //if (tail->prev != NULL){
-                //    if (tail->prev->data > tail->data);
-                //        tmp = tail->prev->data;
-                //        tail->prev->data = tail->data;
-                //        tail->data = tmp;
-                //}
             }
         }
 
@@ -381,16 +393,29 @@ class DLinkedList{
 
         void displayListReverse(){
             Node *ptr = new Node;
-            if (tail == NULL) MESSAGE = "Empty double linked list";
+            if (tail == NULL);
             else{
                 ptr = tail;
                 cout << "------------------------------------------------" << endl;
                 cout << "Displaying Reverse mode: " << endl;
+                int pos = 0; // counting nodes
+                // printing <data>
+                cout << "|  <data>  |";
                 do { 
                     cout << setw(3) << ptr->data;
                     if (ptr->prev != NULL) cout << setw(3) << "<->";
                     ptr = ptr->prev;
+                    pos++;
                 } while (ptr != NULL);
+                
+                // printing <position>
+                cout << endl << "|<position>|";
+                ptr = head;
+                do {
+                    cout << setw(3) << pos << "   ";
+                    ptr = ptr->next;
+                    pos--;
+                } while (ptr!= NULL);
                 //cout << endl << "HEAD: " << head->data <<"\t\tTAIL: " << tail->data << endl;
                 cout << endl;
                 cout << "------------------------------------------------" << endl;
