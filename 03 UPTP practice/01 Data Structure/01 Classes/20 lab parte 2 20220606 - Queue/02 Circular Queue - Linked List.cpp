@@ -54,17 +54,9 @@ class QueueLink{
          * @return false 
          */
         bool isEmpty(){
-            // Updating to a circular Array
-            //if((front == -1) && (rear == -1)){
-            /*if(front == rear){
-                return true;
-            }
-            else
-                return false;*/
-
-            /*if (items > 0) return false;
-            else return true;*/
-            return -1;
+            MESSAGE = "flag";
+            if (front == NULL) return true;
+            else return false;
         }
 
         /**
@@ -93,25 +85,28 @@ class QueueLink{
                 MESSAGE = "Queue is full!";
             }*/
             // if empty
-            if (1){
-                cout << "flag1" << endl;
+            MESSAGE = "XX";
+            if (isEmpty()){
+                MESSAGE = "flag1";
 
                 // Creating node
                 Node *newNode = new Node();
                 newNode->data = key;
+                newNode->next = NULL;
                 
                 rear = newNode;
                 front = newNode;
-                //arr[rear] = key;
-                //items++;
             }
             else{
-                //cout << "flag2" << endl;
-                //rear ++;
+                MESSAGE = "flag2";
 
-                //rear = nextPosition(rear);                
-                //arr[rear] = key;
-                //items++; 
+                // Creating node
+                Node *newNode = new Node();
+                newNode->data = key;
+                newNode->next = NULL;
+                 
+                rear->next = newNode;
+              
             }
         }
 
@@ -151,14 +146,16 @@ class QueueLink{
         void displayQueue(){
             cout << endl;
             cout << "Circular Queue - Using Linked List." << endl;
-            cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl << endl;
+            cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl << endl;
             cout << "     [";
             
             Node *ptr = front;
             if (ptr == NULL) MESSAGE = "Empty.";
-            else if (ptr != NULL){
-                cout << ptr->data << ", ";
-                ptr = ptr->next; 
+            else{
+                while (ptr!=NULL) {
+                    cout << ptr->data << ", ";
+                    ptr = ptr->next;
+                } 
             }
             //for (int i = 0; i < MAXLENGT - 1; i++){
             //    cout << arr[i] << ", ";
@@ -174,7 +171,8 @@ class QueueLink{
             cout << " R"<< endl;*/
 
             // Printing Front and rear Values
-            cout << endl << "Front: " << front << "   Rear: " << rear << /*"   Count: "<< items << */endl;
+            if (front != NULL && rear != NULL)
+            cout << endl << "Front: " << front->data << "   Rear: " << rear->data << /*"   Count: "<< items << */endl;
             cout << endl;
 
             cout << MESSAGE << endl << endl;
