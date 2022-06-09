@@ -174,6 +174,8 @@ class MathProblem{
         if (userAnswer == correctAnswer) isAnswerCorrect = true;
         else isAnswerCorrect = false;
 
+    }
+    void displayAnswer(){
         cout << endl << "The fraction you entered is: " << userAnswer << endl;
         cout << endl << "The correct answer is: " << correctAnswer << endl;
         (isAnswerCorrect) ? cout << "Congragulation the answer you entered is correct!" :
@@ -214,17 +216,38 @@ ostream& operator<<(ostream &out, const Fraction &fract){
 const string Fraction::SYMBOL = "/";
 
 int main(void){
-    MathProblem myProblem;
+    /*MathProblem myProblem;
 
-    myProblem.setProblem();
+    /*myProblem.setProblem();
     myProblem.displayProblem();
-    myProblem.askUserForAnswer();
+    myProblem.askUserForAnswer();*/
 
     // manual testing
     /*cin >> fraction1;
     cin >> fraction2;
     cout << fraction1 + fraction2;
     cout << fraction1 * fraction2;*/
+
+
+    // Part b
+    const int NUMBER_OF_PROBLEMS = 2;
+    
+    // creating n number of problems in to an array
+    MathProblem studentProblems[NUMBER_OF_PROBLEMS];
+    for (int i = 0; i < NUMBER_OF_PROBLEMS; i++){
+        cout << endl << endl << 
+        "PROBLEM #:" << + i + 1 << endl;
+        studentProblems[i].setProblem();
+        studentProblems[i].displayProblem();
+        studentProblems[i].askUserForAnswer();
+    }
+
+    // printing data out
+    /*for (int i = 0; i < NUMBER_OF_PROBLEMS; i++){
+
+    }*/
+
+
 
     return 0;
 }
