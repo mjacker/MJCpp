@@ -35,15 +35,6 @@ static int left = 0;
 static int right = 0;
 static int depth = 0;
 
-/*
-        10
-     /     \
-    5      12
-   / \     / \
-  2   7  11  13
-     / \      \
-    6   8      14
-*/
 
 void printTree(Node *root){
     //cout << "recibo root: " << root << endl;
@@ -60,25 +51,73 @@ void printTree(Node *root){
     
 }
 
+/*
+        10
+     /     \
+    5      12
+   / \     / \
+  2   7  11  13
+ / \          \
+1   3           14
+*/
+void printPreOrder(Node *ptr){
+    if (ptr != NULL){
+        // root
+        cout << ptr->data <<", ";
+
+        // left
+        printPreOrder(ptr->left);
+
+        // right
+        printPreOrder(ptr->right);
+    }
+}
+
+void printInOrder(Node *ptr){
+    if (ptr != NULL){
+        // left
+        printPreOrder(ptr->left);
+
+        // root
+        cout << ptr->data <<", ";
+
+        // right
+        printPreOrder(ptr->right);
+    }
+}
+
+void printPostOrder(Node *ptr){
+    if (ptr != NULL){
+        // left
+        printPreOrder(ptr->left);
+
+        // right
+        printPreOrder(ptr->right);
+
+        // root
+        cout << ptr->data <<", ";
+    }
+}
 
 int main(void){
     system("CLS");
     Node *root = NULL;
 
-    root = insert(root, 10);
-    root = insert(root, 5);
-    root = insert(root, 7);
-    root = insert(root, 2);
-    root = insert(root, 8);
-    root = insert(root, 6);
-    root = insert(root, 12);
-    root = insert(root, 13);
-    root = insert(root, 11);
-    root = insert(root, 14);
+    //int dataTest [] = {10, 5, 7, 2, 3, 1, 12, 13, 11, 14}; // set data not workingI
+    int dataTest [] = {10, 5, 15, 7}; 
 
-    cout << "------------------" << endl;
-    printTree(root);
+    for (int i = 0; i < (sizeof(dataTest)/sizeof(dataTest[0])); i++){
+        root = insert(root, dataTest[i]);
+    }
 
+    cout << endl << "--------PRE-ORDER: ROOT-LEFT-RIGHT--------" << endl;
+    printPreOrder(root);
+    
+    cout << endl << "---------IN-ORDER: LEFT-ROOT-RIGHT---------" << endl;
+    printInOrder(root);
+
+    cout << endl << "--------POS-ORDER: LEFT-RIGHT-RIGHT-------" << endl;
+    printPostOrder(root);
 
     return 0;
 }
